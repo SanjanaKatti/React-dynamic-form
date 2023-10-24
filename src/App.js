@@ -21,8 +21,6 @@ function App() {
       "label" : "Submit"
     },
   ]
-  
-
   return (
     <form>
       {formObjects.map((formObject,index) => (
