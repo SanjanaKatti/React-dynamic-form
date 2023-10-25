@@ -1,29 +1,27 @@
 
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 
+const Input = ({label, register, required }) => (
+    <>
+      <label>{label}</label>
+      <input {...register(label, { required : "This field is required "})} />
+    </>
+)
 function TextBox({ name, id, value, placeholder, maxLength, label }) {
-  const {
-    control,
-    formState: { errors },
-  } = useForm();
-
+    const {
+        register
+    } = useForm();
+    
   return (
     <div>
-      <label>{label}</label>
-      <Controller
-        name={name}
-        control={control}
-        render={({ field }) => (
-          <input
-            id={id}
-            {...field}
-            value={value}
-            placeholder={placeholder}
-            maxLength={maxLength}
-            required
-          />
-        )}
-      />
+      <Input
+      label={label}
+      id={id}
+      placeholder={placeholder} 
+      maxLength={maxLength} 
+      value={value}
+      register={register}
+      required/>
     </div>
   );
 }
