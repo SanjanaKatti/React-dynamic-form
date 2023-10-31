@@ -5,7 +5,7 @@ import DropDown from './Elements/DropDown';
 function FormControl({inputType,options,label}) {
     switch(inputType)
         {
-            case "text": return <TextBox name={label} id="UserName" placeHolder="Enter your name" maxLength="30"/>
+            case "text": return <TextBox name={label} id={label} placeHolder="Enter your name" maxLength="30"/>
             case "submit": return <Submit value="Submit" label={label}/>
             case "time": return <div><input type={inputType}/></div>
             case "radio": return <Radio name="fav_language" type={inputType} options={options}/>

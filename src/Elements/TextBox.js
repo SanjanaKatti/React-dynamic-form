@@ -1,26 +1,26 @@
+import { useFormContext } from "react-hook-form";
 
-import { useForm } from "react-hook-form";
+const Input = ({name, required }) => {
+ const {register, formState: { errors }} = useFormContext(); 
 
-const Input = ({label, register, required }) => (
+ console.log(errors[name])
+ return(
     <>
-      <label>{label}</label>
-      <input {...register(label, { required : "This field is required "})} />
+      <label>{name}</label>
+      <input {...register(name, { required : "This field is required "})} />
+      {errors[name] && <div>{errors[name].message}</div>}
     </>
-)
-function TextBox({ name, id, value, placeholder, maxLength, label }) {
-    const {
-        register
-    } = useForm();
-    
+ )
+ }
+function TextBox({ id, value, placeholder, maxLength, name}) {
+ 
   return (
     <div>
       <Input
-      label={label}
+      name={name}
       id={id}
       placeholder={placeholder} 
       maxLength={maxLength} 
-      value={value}
-      register={register}
       required/>
     </div>
   );

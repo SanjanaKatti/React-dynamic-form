@@ -1,32 +1,11 @@
-// import FormControl from './FormControl.js';
+import FormControl from './FormControl.js';
 import React from "react";
 import './App.css';
-import { useForm } from 'react-hook-form';
-const Input = ({ label, register, required,errors }) => (
-  <>
-    <label>{label}</label>
-    <input {...register(label, { required:"Full name required" })} />
-    {errors[label] && <p className="error-message">{errors[label].message}</p>}
-  </>
-);
-
-const Select = React.forwardRef(({ name, label }, ref) => (
-  <>
-    <label>{label}</label>
-    <select name={name} ref={ref}>
-      <option value="male">Male</option>
-      <option value="female">Female</option>
-      <option value="others">Others</option>
-    </select>
-  </>
-));
+import { useForm, FormProvider } from "react-hook-form";
 
 function App() {
-  const { 
-    register,
-    handleSubmit,
-    formState: {errors},
-        } = useForm();
+  const methods = useForm();
+  const {handleSubmit} = methods
   const formObjects = [
     {
       "inputType" : "text",
@@ -48,16 +27,13 @@ function App() {
   ]
   const onSubmit = (data) => console.log(data);
   return (
-    // <form onSubmit={(data) => console.log(data)}>
-    //   {formObjects.map((formObject,index) => (
-    //       <FormControl  key={index} inputType={formObject.inputType} label={formObject.label} options={formObject.options} />
-    //   ))}
-    // </form>
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <Input label="Full Name" register={register} required={true} errors={errors}/>
-      <Select label="Gender" {...register("Gender")}/>
-      <input type="submit"/>
-    </form>
+    <FormProvider {...methods}>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        {formObjects.map((formObject,index) => (
+            <FormControl  key={index} inputType={formObject.inputType} label={formObject.label} options={formObject.options} />
+        ))}
+      </form>
+    </FormProvider>
   );
 }
 
